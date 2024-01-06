@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Healthify-Home
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="mm"><strong>Welcome to Healthify Web-App👋</strong></h1>
+    <div class="container">
+        <div class="row">
+            {% for song, album, creator_status in songs_and_albums %}
+                {% if creator_status=="white" %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="{{ url_for('static', filename= 'images/' + song.imagepath) }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ song.name }}</h5>
+                                <p class="card-text">Artist: {{ song.artist }}</p>
+                                <p class="card-text">Album: {{ album }}</p>
+                                <p class="card-text">Rating: {{ song.rating }}</p>
+                                <p class="card-text">Genre: {{ song.genre }}</p>
+                                <a href="playSong/{{ song.id }}" class="btn btn-info">Listen</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    
+    
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .mm{
+        text-align: center;
+        margin: 17px;
+    }
+    .pt{
+        margin-bottom: 25px;
+    }
+
+</style>
+{% endblock %}

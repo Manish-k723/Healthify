@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Healthify-Login
+{% endblock %} 
+
+{% block content %} 
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">Login</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="mt-5">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" name="username" id="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" id="password">
+                        </div>
+                        <input type="submit" value="Login" class="btn btn-outline-success">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+{% block style %}
+<style>
+    body {
+        background-color: #343a40; /* Dark background color */
+        color: #ffffff; /* Text color */
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    h1{
+        margin-top: 72px;
+        text-align: center;
+    }
+
+    .login-container {
+        margin-top: 5%;
+    }
+
+    .card {
+        background-color: #ffffff; /* Card background color */
+        color: #000000; /* Card text color */
+    }
+
+</style>
+{% endblock %}

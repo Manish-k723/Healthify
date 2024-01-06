@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Healthify-Register
+{% endblock %} 
+
+{% block content %} 
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0">Register</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" class="mt-5">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" name="name" id="name" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" id="username">
+                            </div>
+                              <div class="form-group col-md-4">
+                                <label for="gender" class="form-label">Gender</label>
+                                    <select class="form-control" name = "gender" id="gender">
+                                        <option>Select</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+                                    </select>
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label for="dob" class="form-label" style="margin-top: 14px;">Date of Birth</label>
+                                <input type="date" class="form-control" name="dob" id="dob">
+                              </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label" style="margin-top: 14px;">Email</label>
+                                <input type="text" name="email" id="email" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Create Password</label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" name="confirmPassword" id="confirmPassword">
+                            </div>
+                            <input type="submit" value="Register" class="btn btn-outline-success">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 
+
+{% block style %}
+<style>
+    body {
+        background-color: #343a40; /* Dark background color */
+        color: #ffffff; /* Text color */
+    }
+    form{
+        /* width: 50%;
+        margin: 0 auto; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1{
+        margin-top: 72px;
+        text-align: center;
+    }
+    
+</style>
+{% endblock %}

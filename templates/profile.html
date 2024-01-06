@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}
+Healthify-Profile
+{% endblock %} 
+{% block content %}
+    <h1>Profile
+        <small class="text dec">@{{user.username}}</small>
+    </h1>
+    
+    <hr>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Edit Profile</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" class="mt-5">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" id="username" value="{{user.username}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Update Name</label>
+                                <input type="text" class="form-control" name="name" id="name" value="{{user.name}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Update Email</label>
+                                <input type="text" class="form-control" name="email" id="email" value="{{user.email}}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
+                            <input type="submit" value="Save Changes" class="btn btn-outline-success">
+                            <a href="{{url_for('logout')}}" class="btn btn-outline-danger mt-3">Logout</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .dec{
+        color: #05b563;
+    }
+    form{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    h1,h2,h3{
+        text-align: center;
+    }
+</style>
+{% endblock %}

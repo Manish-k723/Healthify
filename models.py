@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(32), nullable=True)
     gender = db.Column(db.String(30), nullable = False)
     email = db.Column(db.String(120), unique =True, nullable = False)
+    dob = db.Column(db.Date, nullable = True)
     weight = db.Column(db.Integer, nullable = True)
     height = db.Column(db.Integer, nullable = True)
     bmi_score = db.Column(db.Integer, nullable = True)

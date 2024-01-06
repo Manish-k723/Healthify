@@ -1,0 +1,96 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Healthify</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+              {% if user %}
+                {% if user.role=="admin" %}
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="{{url_for('logout')}}" class="btn btn-outline-warning bar">Logout</a>
+                        </li>
+                    </ul>
+                {% else %}
+                  <ul class="navbar-nav navbar navbar-expand-lg navbar-light bg-light">
+                    <li class="nav-item">
+                      <a href="{{url_for('mental_health_check_up')}}" class="btn btn-outline-warning bar">Mental Health</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{url_for('read_articles')}}" class="btn btn-outline-warning bar">Read Articles</a>
+                    </li>
+                    {% if user.gender == "Female" %}
+                    {% if user.pregnant %}
+                        <li class="nav-item">
+                            <a href="{{url_for('mother')}}" class="btn btn-outline-warning bar">Maternal DashBoard</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{{url_for('mother')}}" onclick="confirmPregnancy()" class="btn btn-outline-warning bar">Are you mother?</a>
+                        </li>
+                    {% endif %}                    
+                    {% endif %}                    
+                    <li class="nav-item ms-auto">
+                      <a href="{{url_for('contact')}}" class="btn btn-outline-warning bar">Contact Us</a>
+                    </li>
+                    <li class="nav-item ">
+                      <a href="{{url_for('profile')}}" class="btn btn-outline-warning bar">My Profile</a>
+                    </li>
+                  </ul>
+                    {% endif %}
+  
+              {% else %}
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="btn btn-outline-danger bar" href="{{url_for('login')}}">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="btn btn-outline-danger bar" href="{{url_for('register')}}">Register</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="btn btn-outline-danger bar" href="{{url_for('admin')}}">Admin Login</a>
+                  </li>
+                </ul>
+              {% endif %}
+              
+        </div>
+      </div>
+    </nav>
+<script>
+    function confirmPregnancy() {
+        if(confirm('Congratulations! Confirm your pregnancy.')) {
+            // Send a request to the server to update the pregnancy status
+            fetch('{{ url_for("update_pregnancy_status") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ pregnant: true })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle response
+                if(data.success) {
+                    alert('Pregnancy status updated!');
+                    // Optionally, reload the page or redirect
+                    location.reload();
+                } else {
+                    alert('Error updating status.');
+                }
+            });
+        }
+    }
+    </script>
+  
+  <style>
+    .navbar{
+      width: 100%;
+      padding: 0;
+    }
+  
+    .bar{
+      /* margin-right: 10px; */
+      margin: 10px;
+    }
+  </style>
