@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Healthify- Add article
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if user.is_admin %}
+        <h2>Add a New Article</h2>
+    {% else %}
+        <h2>Submit a New Article</h2>
+    {% endif %}
+    <form action="/addArticle" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="articleTitle">Article Title</label>
+            <input type="text" class="form-control" id="articleTitle" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="abstract">Abstract</label>
+            <textarea class="form-control" id="abstract" name="abstract" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="articleCreator">Description</label>
+            <textarea class="form-control" id="articleContent" name="content" rows="10"></textarea>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="articleImage">Article Image</label>
+            <input type="file" class="form-control-file" id="articleImage" name="image">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+{% endblock %}
+
+{% block style %}
+<style>
+    .pn{
+        margin-bottom: 8px;
+    }
+    .sub{
+        border-radius: 5px;
+        padding: 3px 0px 0px 8px;
+    }
+</style>
+{% endblock %}s

@@ -14,6 +14,7 @@ class User(UserMixin, db.Model):
     gender = db.Column(db.String(30), nullable = False)
     email = db.Column(db.String(120), unique =True, nullable = False)
     dob = db.Column(db.Date, nullable = True)
+    who = db.Column(db.String(30), nullable = False)
     weight = db.Column(db.Integer, nullable = True)
     height = db.Column(db.Integer, nullable = True)
     bmi_score = db.Column(db.Integer, nullable = True)
@@ -40,10 +41,13 @@ class User(UserMixin, db.Model):
 class article(db.Model):
     __tablename__="article"
     id = db.Column(db.Integer, primary_key = True)
-    topic = db.Column(db.String(60), nullable = False)
+    title = db.Column(db.String(60), nullable = False)
+    abstract = db.Column(db.String(420), nullable = False)
     content = db.Column(db.String(1024), nullable = False)
     imagepath = db.Column(db.String(255), nullable=False)
+    impressions = db.Column(db.Integer, default = 0)
     CreatorId = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
+    creator = db.Column(db.String(35), nullable = False)
     status = db.Column(db.String(12), default="pending")
 
 class query(db.Model):
@@ -71,6 +75,6 @@ with app.app_context():
     db.create_all()
     admin = User.query.filter_by(is_admin=True).first()
     if not admin:
-        admin = User(username="admin", name = "admin", password="admin133", email="admin@healthify.in", is_admin=True, gender = "Male")
+        admin = User(username="admin", name = "admin", password="admin133", who="Other", email="admin@healthify.in", is_admin=True, gender = "Male")
         db.session.add(admin)
         db.session.commit()

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Article</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            background: center/cover no-repeat url('../static/icons/bg10.png');
+            background-repeat: no-repeat;
+        }
+        .article-container {
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .article-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .article-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .article-content, .article-abstract {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+        }
+        .article-creator {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        .back-button {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-button">
+            <button onclick="history.back()" class="btn btn-success">Back to Previous Page</button>
+        </div>
+        <div class="article-container">
+            <h1 class="article-title">Title: {{article.title}}</h1>
+            <p class="article-creator">By {{article.creator}}</p>
+            <p class="article-abstract">Abstract: {{article.abstract}}</p>
+            
+            <div class="article-content">
+                <p>{{article.content}}</p>
+                <!-- More article content goes here -->
+            </div>
+        </div>
+    </div>
+    {% if not user.is_admin %}
+    <div class="container">
+        <div class="article-feedback">
+            <h5>Found this useful?</h5>
+            <form action="/update-impression" method="POST">
+                <input type="hidden" name="article_id" value="{{ article.id }}">
+                <button type="submit" name="impression" value="up" class="btn btn-success">Yes</button>
+                <button type="submit" name="impression" value="down" class="btn btn-danger">No</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

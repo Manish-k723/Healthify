@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Healthify-Manage Articles
+{% endblock %} 
+
+{% block content %}
+<body>
+    <div class="container mt-4">
+        <div class="text-center pt">
+            <h2 class="mb-4">Welcome to our Articles Section👋</h2>
+            <a href="/addArticle" class="btn btn-warning btn-lg" style="margin-bottom: 20px;"><span class="plus-sign">+</span> Add Article</a>
+        </div>
+        {% for article in articles %}
+            {% if article.status == "publish" %}
+            <div class="card article-card">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="{{ url_for('static', filename= 'images/' + article.imagepath) }}" class="article-image" alt="Article Image">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{article.title}}</h5>
+                            <p class="card-text text-muted">By {{article.creator}}</p>
+                            <p class=""card-text><strong>Abstract:</strong> {{article.abstract}}</p>
+                            <a href="healthifyArticles/{{article.id}}" class="btn btn-primary mt-auto">Read the Article</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+    </div>
+</body>
+{% endblock %}
+
+{% block style %}
+<style>
+    .article-card {
+        margin-bottom: 20px;
+    }
+    .article-image {
+        width: 100%;
+        height: auto;
+    }
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+</style>
+{% endblock %}

@@ -27,7 +27,7 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a href="{{url_for('mother')}}" onclick="confirmPregnancy()" class="btn btn-outline-warning bar">Are you mother?</a>
+                            <a href="{{url_for('mother')}}" onclick="confirmPregnancy()" class="btn btn-outline-warning bar">Are you going to be mother?</a>
                         </li>
                     {% endif %}                    
                     {% endif %}                    
@@ -59,7 +59,7 @@
     </nav>
 <script>
     function confirmPregnancy() {
-        if(confirm('Congratulations! Confirm your pregnancy.')) {
+        if(confirm('Congratulations! Confirm your status.')) {
             // Send a request to the server to update the pregnancy status
             fetch('{{ url_for("update_pregnancy_status") }}', {
                 method: 'POST',

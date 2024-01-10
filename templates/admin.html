@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Musicly-Manage Creators
+{% endblock %} 
+
+{% block content %} 
+<body>
+    <div class="container mt-9">
+    <h1><strong style="display: flex; justify-content: center;">Manage Articles</strong></h1>
+    <div class="text-center pt">
+        <a href="/addArticle" class="btn btn-warning btn-lg"><span class="plus-sign">+</span> Add Article</a>
+    </div>
+    <div style="display: flex; justify-content: center;" class="row mt-4">
+      <div class="col-md-9">
+        <h3><strong style="display: flex; justify-content: center; color: green;">Published Articles</strong></h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Posted By</th>
+              <th>Impression</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for article in articles %}
+            <tr>
+                {% if article.status == "publish" %}  
+                  <td>{{ article.id }}</td>
+                  <td>{{ article.title }}</td>
+                  <td>{{ article.creator }}</td>
+                  <td>{{ article.impressions }}</td>
+                  <td>
+                    <form>
+                      <button type="submit" class="btn btn-info btn-sm"><i class="fas fa-book"></i><a href="healthifyArticles/{{article.id}}"> Read</a></button>
+                      <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-flag"></i><a href="adminHome/{{article.id}}/{{'pending'}}"> Flag</a></button>
+                    </form>
+                  </td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
+  
+      <div class="col-md-9">
+        <h3><strong style="display: flex; justify-content: center; color: red;">Pending/Flagged Articles</strong></h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Creator</th>
+              <th>Impression</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for article in articles %}
+            <tr>
+              {% if article.status == "pending" or article.status == "flag" %}
+              <td>{{ article.id }}</td>
+              <td>{{ article.title }}</td>
+              <td>{{ article.creator }}</td>
+              <td>{{ article.impressions }}</td>
+                <td>
+                  <form>
+                    <button type="submit" class="btn btn-info btn-sm"><i class="fas fa-book"></i><a href="healthifyArticles/{{article.id}}"> Read</a></button>
+                    <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-check"></i><a href="adminHome/{{article.id}}/{{'publish'}}"> Publish</a></button>
+                  </form>
+                </td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock %} 
+
+{% block style %}
+<style>
+  body{
+        background: center/cover no-repeat url('../static/icons/bg3.jpg');
+      }
+  a{
+    text-decoration: none;
+    color: white;
+  }
+</style>
+{% endblock %}
