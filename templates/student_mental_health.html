@@ -6,53 +6,149 @@
 
 {% block content %}
 
-<form>
-    <h2>Some Questions to Generate a Report for You</h2>
+<form action="/submit-answers" method="post">
+    <h1 class="pp">Mental Health Analysis Form for Students</h1>
+    <p>
+      This form is designed to assess your general well-being, focusing on emotional and mental health. 
+      Your responses will help us understand your current state and provide the necessary support. 
+      Please note that some questions might seem personal, but they are crucial for a comprehensive analysis. 
+      Your responses will be kept confidential.
+  </p>
+    
+    <h3>Basic Info</h3>
+    <hr>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputEmail4">Email</label>
-        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        <label for="name">Name (Optional)</label>
+        <input type="text" class="form-control" id="name" name="name">
       </div>
       <div class="form-group col-md-6">
-        <label for="inputPassword4">Password</label>
-        <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+        <label for="age">Age</label>
+        <input type="number" class="form-control" id="age" name="age">
       </div>
     </div>
-    <div class="form-group">
-      <label for="inputAddress">Address</label>
-      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group">
-      <label for="inputAddress2">Address 2</label>
-      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
+
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputCity">City</label>
-        <input type="text" class="form-control" id="inputCity">
-      </div>
-      <div class="form-group col-md-4">
-        <label for="inputState">State</label>
-        <select id="inputState" class="form-control">
+        <label for="gender">Gender</label>
+        <select id="gender" class="form-control" name="gender">
           <option selected>Choose...</option>
-          <option>...</option>
+          <option value=0>Female</option>
+          <option value=1>Male</option>
         </select>
       </div>
-      <div class="form-group col-md-2">
-        <label for="inputZip">Zip</label>
-        <input type="text" class="form-control" id="inputZip">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="married">Married</label>
+        <select id="married" class="form-control" name="married">
+          <option selected>Choose...</option>
+          <option value=1>Yes</option>
+          <option value=0>No</option>
+        </select>
       </div>
     </div>
+    <div class="form-group col-md-6">
+      <label for="gradeLevel">Grade/Year Level</label>
+      <input type="text" class="form-control" id="gradeLevel" name="gradeLevel">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="tier">College Tier</label>
+        <select id="tier" class="form-control" name="tier">
+          <option selected>Choose...</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="course">Course, you are studying</label>
+        <select id="course" class="form-control" name="course">
+          <option selected>Choose...</option>
+          <option value="1">Engineering</option>
+          <option value="3">Medical</option>
+          <option value="5">Business</option>
+          <option value="2">Humanities</option>
+          <option value="4">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="gpa">Your CGPA</label>
+      <input type="number" class="form-control" id="gpa" name="gpa">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="income">Your overall Family Income(in lakhs)</label>
+      <input type="number" class="form-control" id="income" name="income">
+    </div>
+  
+    <h3 class="pp">General Well-being Questions</h3>
+    <hr>
     <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="gridCheck">
-        <label class="form-check-label" for="gridCheck">
-          Check me out
-        </label>
+      <label for="overallMood">How would you rate your overall mood this week?</label>
+      <select id="overallMood" class="form-control" name="overallMood">
+        <option selected>Choose...</option>
+        <option value="1">Very Poor</option>
+        <option value="2">Poor</option>
+        <option value="3">Fair</option>
+        <option value="4">Good</option>
+        <option value="5">Excellent</option>
+      </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="lifeChanges">Have you experienced any significant life changes recently?</label>
+      <input type="text" class="form-control" id="lifeChanges" name="lifeChanges">
+    </div>
+  
+    <h3 class="pp">Emotional Well-being Questions</h3>
+    <hr>
+    <div class="form-group">
+      <label for="feelingDown">Over the past 2 weeks, how often have you felt down, depressed, or hopeless?</label>
+      <select id="feelingDown" class="form-control" name="feelingDown">
+        <option selected>Choose...</option>
+        <option value="4">Never</option>
+        <option value="3">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="1">Nearly every day</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="lostInterest">In past 2 weeks, Have you lost interest or pleasure in activities you usually enjoy?</label>
+      <select id="lostInterest" class="form-control" name="lostInterest">
+        <option selected>Choose...</option>
+        <option value="4">Never</option>
+        <option value="3">Several days</option>
+        <option value="2">More than half the days</option>
+        <option value="1">Nearly every day</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="feltAnxiety">Have you felt anxiety in the past?</label>
+      <div>
+        <input type="radio" id="anxietyYes" name="feltAnxiety" value="1">
+        <label for="anxietyYes">Yes</label>
+        <input type="radio" id="anxietyNo" name="feltAnxiety" value="0">
+        <label for="anxietyNo">No</label>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
+  
+    <h3 class="pp">Additional Comments</h3>
+    <hr>
+    <div class="form-group">
+      <label for="additionalComments">Is there anything else you would like to share about your mental health or well-being?</label>
+      <textarea class="form-control" id="additionalComments" name="additionalComments" rows="3"></textarea>
+    </div>
+  
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-outline-success fp">Submit</button>
   </form>
+  
 {% endblock %}
 
 {% block style %}
@@ -65,13 +161,19 @@
         padding: 3px 0px 0px 8px;
     }
     body{
-            margin: 0;
-            padding: 0;
-            font-family: 'Balsamiq Sans', 'cursive';
-            background-color: #454f58;
-            background: center/cover no-repeat url('../static/icons/bg14.png');
-            background-repeat: no-repeat;
-            color: black;
+        margin: 0;
+        padding: 0;
+        font-family: 'Balsamiq Sans', 'cursive';
+        background-color: #454f58;
+        background: center/cover no-repeat url('../static/icons/bg14.png');
+        background-repeat: no-repeat;
+        color: black;
         }
+    .pp, .fp{
+        margin-top: 20px;
+    }
+    .fp{
+      margin-bottom: 15px;
+    }
 </style>
 {% endblock %}

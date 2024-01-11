@@ -4,6 +4,10 @@ from flask import Flask, request, render_template, url_for, flash, redirect, ses
 from sqlalchemy import func
 from datetime import datetime
 from PIL import Image
+import nltk, joblib
+from nltk.sentiment import SentimentIntensityAnalyzer
+nltk.download('vader_lexicon')
+sia = SentimentIntensityAnalyzer()
 
 from models import db, User, article, query, exercise, yoga
 from app import app
@@ -207,6 +211,64 @@ def mental_health_check_up():
         return render_template("student_mental_health.html", user = user)
     else:
         return render_template("wp_mental_health.html", user = user)
+
+@app.route('/submit-answers', methods=["POST"])
+@auth_required
+def predict_student():
+    user = User.query.get(session["user_id"])
+    name = request.form.get('name')
+    age = int(request.form.get('age'))
+    scaler = joblib.load('models\scalingStudent.joblib')
+    scaled_age = scaler.transform([[age]])
+    gender = int(request.form.get('gender'))
+    married = int(request.form.get('married'))
+    grade = int(request.form.get("gradeLevel"))
+    cllge = int(request.form.get("tier"))
+    course= int(request.form.get("course"))
+    gpa = int(request.form.get("gpa"))
+    income = int(request.form.get("income"))
+    mood = int(request.form.get("overallMood"))
+    changes = request.form.get("lifeChanges")
+    feelingDown = int(request.form.get("feelingDown"))
+    lostInterest = int(request.form.get("lostInterest"))
+    anxiety = int(request.form.get("feltAnxiety"))
+    additionalComments = request.form.get("additionalComments")
+    inpt = [gender, scaled_age[0][0], cllge, grade, married, anxiety]
+    gpa = gpa/2.5
+    if gpa < 2:
+        inpt.extend([0, 0, 0, 0])
+    elif gpa<2.5:
+        inpt.extend([1, 0, 0, 0])
+    elif gpa<3:
+        inpt.extend([0, 1, 0, 0])
+    elif gpa<3.5:
+        inpt.extend([0, 0, 1, 0])
+    else:
+        inpt.extend([0, 0, 0, 1])
+    if course <5:
+        crse = [1 if i == course else 0 for i in range(1, 5)]
+        inpt.extend(crse)
+    else:
+        inpt.extend([0, 0, 0, 0])
+    if income <= 2:
+        inpt.extend([1,0])
+    elif income>5:
+        inpt.extend([0,1])
+    else:
+        inpt.extend([0,0])
+    predictor = joblib.load('models\student_predictor2.joblib')
+    w1 =  predictor.predict([inpt])
+    s1 = sia.polarity_scores(changes)
+    if s1["compound"]> 0.15:
+            w2 = min(5, mood+2)
+    elif s1["compound"]< -0.15:
+        w2 = max(0, mood-2)
+    else:   w2=mood
+    w3 = feelingDown+lostInterest*0.5
+    w4 = sia.polarity_scores(additionalComments)
+    print(w1, w2, w3, w4)
+    return redirect(url_for("mental_health_check_up"))
+
 
 @app.route('/read_articles')
 @auth_required
