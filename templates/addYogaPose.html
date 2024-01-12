@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Musicly-Manage Albums
+{% endblock %} 
+
+{% block content %} 
+<body>
+<div class="container mt-5">
+  <div class="container mt-5">
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <h3>Add a new Pose</h3>
+        <hr>
+        <form method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="title">Pose Title:</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="duration">Duration</label>
+            <input type="text" class="form-control" id="duration" name="duration" required>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="steps">Steps:</label>
+            <textarea class="form-control" id="steps" name="steps" rows="5" required></textarea>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-primary">Add Discipline</button>
+        </form>
+      </div>
+  
+      <div class="col-md-6">
+        <h3>List of Poses</h3>
+        <hr>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Pose Title</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pose in poses %}
+            <tr>
+              <td>{{ pose.posename }}</td>
+              <td>{{ pose.duration }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+{% endblock %} 
+
+{% block style %}
+<style>
+  a{
+    text-decoration: none;
+    color: black;
+  }
+  .table{
+    width: 110%;
+  }
+  body{
+      font-family: 'Balsamiq Sans', 'cursive';
+      background-color: #313538;
+      color: #ffffff;
+      }
+</style>
+{% endblock %}

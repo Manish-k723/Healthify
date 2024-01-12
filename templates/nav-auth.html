@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light " >
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Healthify</a>
@@ -6,7 +7,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
               {% if user %}
-                {% if user.role=="admin" %}
+                {% if user.is_admin %}
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <a href="{{url_for('logout')}}" class="btn btn-outline-warning bar">Logout</a>
@@ -35,7 +36,7 @@
                       <a href="{{url_for('contact')}}" class="btn btn-outline-warning bar">Contact Us</a>
                     </li>
                     <li class="nav-item ">
-                      <a href="{{url_for('profile')}}" class="btn btn-outline-warning bar">My Profile</a>
+                      <a href="{{url_for('profile')}}" class="bar"><i class="fa fa-user-circle-o" style="font-size:48px;color:orange"></i></a>
                     </li>
                   </ul>
                     {% endif %}

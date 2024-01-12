@@ -1,5 +1,22 @@
-import joblib
-# Make a prediction
-model = joblib.load("models\student_predictor.joblib")
-print(model.predict([[1, -0.05987475, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0 ,0]]))
-
+# <div class="container mt-4">
+#     <div class="row">
+#         <div class="col-12 mb-3">
+#             <table class="table table-bordered meal-table">
+#                 <thead>
+#                     <tr>
+#                         <th>Breakfast</th>
+#                         <th>Lunch</th>
+#                         <th>Dinner</th>
+#                     </tr>
+#                 </thead>
+#                 <tbody>
+#                     <tr>
+#                         <td class="meal-recommendation">Breakfast</td>
+#                         <td class="meal-recommendation">Lunch</td>
+#                         <td class="meal-recommendation">dinner</td>
+#                     </tr>
+#                 </tbody>
+#             </table>
+#         </div>
+#     </div>
+# </div>

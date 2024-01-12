@@ -57,19 +57,35 @@ class query(db.Model):
     description = db.Column(db.String(260), nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
 
-class yoga(db.Model):
-    __tablename__ = 'yoga'
+class Yoga(db.Model):
+    __tablename__ = 'Yoga'
     id = db.Column(db.Integer, primary_key = True)
-    posename = db.Column(db.String(30), nullable = False)
-    path = db.Column(db.String(255), nullable=False)
-    steps = db.Column(db.String(200), nullable = True)
+    name = db.Column(db.String(40), nullable = False)
+    imagepath = db.Column(db.String(120), nullable = False)
+    description = db.Column(db.String(120), nullable = False)
 
-class exercise(db.Model):
-    __tablename__ = 'exercise'
+class yogaPoses(db.Model):
+    __tablename__ = 'yogaPoses'
     id = db.Column(db.Integer, primary_key = True)
     posename = db.Column(db.String(30), nullable = False)
-    path = db.Column(db.String(255), nullable=False)
+    duration = db.Column(db.String(30), nullable = False)
     steps = db.Column(db.String(200), nullable = True)
+    yoga_id = db.Column(db.Integer, db.ForeignKey('Yoga.id'), nullable = False)
+
+class Exercise(db.Model):
+    __tablename__ = 'Exercise'
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(40), nullable = False)
+    imagepath = db.Column(db.String(120), nullable = False)
+    description = db.Column(db.String(120), nullable = False)
+
+class exercisePoses(db.Model):
+    __tablename__ = 'exercisePoses'
+    id = db.Column(db.Integer, primary_key = True)
+    posename = db.Column(db.String(30), nullable = False)
+    duration = db.Column(db.String(30), nullable = False)
+    steps = db.Column(db.String(200), nullable = True)
+    exercise_id = db.Column(db.Integer, db.ForeignKey('Exercise.id'), nullable = False)
 
 with app.app_context():
     db.create_all()

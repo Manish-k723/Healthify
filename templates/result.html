@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Your Result
+{% endblock %}
+
+{% block content %} 
+</head>
+<body>
+    <div class="container">
+        <h1>Mental Health Report</h1>
+        <p class="text-muted">Note: All scores are out of 5, also these scores are highly dependent on our answers.</p>
+        <h3>Overall score: {{ w5 }}</h3>
+        <p><a href="https://mentalhealthdeltadivision.com/interactive-games/" target="blank">Try these mindful activities</a></p>
+        <div class="category">
+            <h3>Basic Score: <strong>{{w1}}</strong></h3>
+            <p>{{ analyses.basic_analysis }}</p>
+        </div>
+        <div class="category">
+            <h3>General Well-being score: <strong>{{w2}}</strong></h3>
+            <p>{{ analyses.general_wellbeing_analysis }}</p>
+        </div>
+        <div class="category">
+            <h3>Emotional Well-being Analysis: <strong>{{w3}}</strong></h3>
+            <p>{{ analyses.emotional_analysis }}</p>
+        </div>
+        <div class="category">
+            <h3>Additional Comments Analysis: <strong>{{w4}}</strong></h3>
+            <p>{{ analyses.additional_comments_analysis }}</p>
+        </div>
+        <div class="suggestions">
+            <h2>General Suggestions for Improving Mental Well-being</h2>
+            <ul>
+                <li>Regular physical activity and exercise can greatly improve your mental health. Try to incorporate some form of activity into your daily routine.</li>
+                <li>Maintaining a balanced diet and ensuring adequate sleep are crucial for mental health. Prioritize your physical health to support your mental well-being.</li>
+                <li>Don’t hesitate to seek support. Talking to friends, family, or a professional can provide relief and offer new perspectives on your challenges.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+{% endblock %}
+{% block style %}
+<style>
+    body{
+            font-family: 'Balsamiq Sans', 'cursive';
+            background-color: #454f58;
+            background: center/cover no-repeat url('../static/icons/bg14.png');
+            background-repeat: no-repeat;
+            color: black;
+        }
+    .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+    }
+    .category {
+        background: #f4f4f4;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+    .category h3 {
+        color: #333;
+    }
+    .suggestions {
+        background: #e7f3fe;
+        padding: 15px;
+        border-radius: 8px;
+        color: #0366d6;
+    }
+</style>
+{% endblock %}

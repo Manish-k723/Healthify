@@ -5,32 +5,84 @@
 {% endblock %}
 
 {% block content %}
+<div class="container mt-4">
+    <h1>Health Metrics</h1>
+    <hr>
+    <div class="row">
+        {% for param, value in health.items() %}
+        <div class="col-md-2 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{param}}</h5>
+                    <p class="card-text">{{value}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 
-<div class="container mt-5">
-    <h1 class="mm"><strong>Welcome to Healthify Web-App👋</strong></h1>
-    <div class="container">
-        <div class="row">
-            {% for song, album, creator_status in songs_and_albums %}
-                {% if creator_status=="white" %}
-                    <div class="col-md-3 mb-4">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="{{ url_for('static', filename= 'images/' + song.imagepath) }}" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ song.name }}</h5>
-                                <p class="card-text">Artist: {{ song.artist }}</p>
-                                <p class="card-text">Album: {{ album }}</p>
-                                <p class="card-text">Rating: {{ song.rating }}</p>
-                                <p class="card-text">Genre: {{ song.genre }}</p>
-                                <a href="playSong/{{ song.id }}" class="btn btn-info">Listen</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
+        <!-- Heart Rate Card -->
+        <div class="col-md-2 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <button class="card-title btn btn-outline-secondary">Customize <i class="fa fa-pencil-square-o" style="font-size:24px"></i></button>
+                </div>
+            </div>
         </div>
     </div>
-    
-    
+</div>
+
+<div class="container mt-4">
+    <h1>Preferred meal</h1>
+    <div class="row">
+        {% for param, value in meal_recommendations.items() %}
+        <div class="col-md-4 mb-3">
+            <div class="card meal-card">
+                <div class="card-header meal-card-header">
+                    <strong>{{param}}</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-textt"> {{ value }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container mt-4">
+    <h1>Discover Yoga: Find Your Balance</h1>
+    <hr>
+    <div class="row">
+        <!-- Loop through yoga sessions -->
+        <div class="col-md-3 mb-3" each="yoga in yoga_sessions">
+            <div class="card yoga-card">
+                <img src="/" class="card-img-top" alt="Yoga Image">
+                <div class="card-body">
+                    <h5 class="card-title"> yoga.title </h5>
+                    <p class="card-text">yoga.description </p>
+                    <a href="/" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <h1>Strength & Stamina Workouts</h1>
+    <hr>
+    <div class="row">
+        <!-- Loop through yoga sessions -->
+        <div class="col-md-3 mb-3" each="yoga in yoga_sessions">
+            <div class="card yoga-card">
+                <img src="/" class="card-img-top" alt="Yoga Image">
+                <div class="card-body">
+                    <h5 class="card-title"> yoga.title </h5>
+                    <p class="card-text">yoga.description </p>
+                    <a href="/" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
@@ -42,6 +94,42 @@
     }
     .pt{
         margin-bottom: 25px;
+    }
+
+    body {
+            background-color: #f4f4f4;
+            color: #333;
+    }
+    .card {
+        background-color: #cfbf8e;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    .card-title {
+        color: #198754; /* Bootstrap primary color */
+    }
+    .card-text {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    .yoga-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .yoga-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    .yoga-card img {
+        width: 100%;
+        height: auto;
+        border-top-left-radius: calc(.25rem - 1px);
+        border-top-right-radius: calc(.25rem - 1px);
     }
 
 </style>
