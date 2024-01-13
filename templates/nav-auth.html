@@ -22,15 +22,9 @@
                       <a href="{{url_for('read_articles')}}" class="btn btn-outline-warning bar">Read Articles</a>
                     </li>
                     {% if user.gender == "Female" %}
-                    {% if user.pregnant %}
                         <li class="nav-item">
-                            <a href="{{url_for('mother')}}" class="btn btn-outline-warning bar">Maternal DashBoard</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a href="{{url_for('mother')}}" onclick="confirmPregnancy()" class="btn btn-outline-warning bar">Are you going to be mother?</a>
-                        </li>
-                    {% endif %}                    
+                            <a href="{{url_for('mother')}}" class="btn btn-outline-warning bar">Maternal Risk-o-meter</a>
+                        </li>                 
                     {% endif %}                    
                     <li class="nav-item ms-auto">
                       <a href="{{url_for('contact')}}" class="btn btn-outline-warning bar">Contact Us</a>
@@ -39,8 +33,10 @@
                       <a href="{{url_for('profile')}}" class="bar"><i class="fa fa-user-circle-o" style="font-size:48px;color:orange"></i></a>
                     </li>
                   </ul>
-                    {% endif %}
-  
+                {% endif %}
+              {% elif bd %}
+                <ul class="navbar-nav ms-auto"> 
+                  </ul>
               {% else %}
                 <ul class="navbar-nav">
                   <li class="nav-item">
@@ -59,29 +55,6 @@
       </div>
     </nav>
 <script>
-    function confirmPregnancy() {
-        if(confirm('Congratulations! Confirm your status.')) {
-            // Send a request to the server to update the pregnancy status
-            fetch('{{ url_for("update_pregnancy_status") }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ pregnant: true })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle response
-                if(data.success) {
-                    alert('Pregnancy status updated!');
-                    // Optionally, reload the page or redirect
-                    location.reload();
-                } else {
-                    alert('Error updating status.');
-                }
-            });
-        }
-    }
     </script>
   
   <style>

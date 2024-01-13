@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Yoga/Workout
+{% endblock %}
+
+{% block content %}
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4" style="color: black"><strong>{{discipline.name}}</strong></h1>
+    
+    {% for pose in poses %}
+        <div class="card pose-card">
+            <div class="pose-header">{{ pose.posename }}</div>
+            <div class="pose-body">
+                <p class="pose-duration">Duration: {{ pose.duration }}</p>
+                <p class="pose-steps">{{ pose.steps }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+            margin: 0;
+            padding: 0;
+            font-family: 'Balsamiq Sans', 'cursive';
+            background-color: #454f58;
+            background: center/cover no-repeat url({{img}});
+            background-repeat: no-repeat;
+            color: black;
+        }
+    .pose-card {
+        margin-bottom: 30px;
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    .pose-card:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .pose-header {
+        background-color: #105d3d;
+        color: white;
+        padding: 15px 20px;
+        font-size: 1.4em;
+    }
+    .pose-body {
+        background-color: white;
+        padding: 20px;
+    }
+    .pose-duration {
+        color: #28a745;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .pose-steps {
+        color: #333;
+        white-space: pre-line;
+    }
+</style>
+{% endblock %}

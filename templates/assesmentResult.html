@@ -1,0 +1,58 @@
+{% extends 'layout.html'%}
+
+{% block title %}
+ Mother Health Risk Assessment
+{% endblock %}
+
+{% block content %}
+    <body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Mother Health Risk Assessment Result</h2>
+        <div class="content-section">
+            <h4>Risk Level: <span class="risk-level">{{ assessment.interpretation }}</span></h4>
+        </div>
+        
+        <div class="content-section">
+            <h4>Suggestions Based on Your Score</h4>
+            <ul class="suggestions-list">
+                {% for suggestion in assessment.suggestions %}
+                    <li>{{ suggestion }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="content-section">
+            <h4>General Health Suggestions</h4>
+            <ul class="suggestions-list">
+                {% for general_suggestion in assessment.general_suggestions %}
+                    <li>{{ general_suggestion }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+                    
+    </div>
+</body>
+{% endblock %}
+
+{% block style %}
+    <style>
+        body{
+            background: center/cover no-repeat url('../static/icons/fetal.gif');
+            background-repeat: no-repeat;
+            color: white;
+        }
+        .suggestions-list {
+            list-style-type: none;
+            padding: 0;
+        }
+            .suggestions-list li {
+            margin-bottom: 10px;
+        }
+            .risk-level {
+            font-weight: bold;
+        }
+            .content-section {
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}

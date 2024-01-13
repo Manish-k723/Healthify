@@ -18,10 +18,16 @@ class User(UserMixin, db.Model):
     weight = db.Column(db.Integer, nullable = True)
     height = db.Column(db.Integer, nullable = True)
     bmi_score = db.Column(db.Integer, nullable = True)
+    physical_activity = db.Column(db.String(20))
+    exercise_frequency = db.Column(db.String(20))
+    vehicle_use = db.Column(db.String(20))
     bp = db.Column(db.Integer, nullable = True)
+    heart_rate = db.Column(db.Integer)
+    cholesterol = db.Column(db.String(20))
     sl = db.Column(db.Integer, nullable = True)
     pregnant = db.Column(db.Boolean, default = False)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
+    bg = db.Column(db.String(12), nullable =True)
 
     @property
     def password(self):
@@ -50,10 +56,13 @@ class article(db.Model):
     creator = db.Column(db.String(35), nullable = False)
     status = db.Column(db.String(12), default="pending")
 
-class query(db.Model):
+class Query(db.Model):
     __tablename__= "query"
     query_id = db.Column(db.Integer, primary_key = True)
-    title = db.Column(db.String(60), nullable = False)
+    user_name = db.Column(db.String(30), nullable = False)
+    phone_number = db.Column(db.String(13), nullable = True)
+    email = db.Column(db.String(30), nullable = True)
+    problem_title = db.Column(db.String(60), nullable = False)
     description = db.Column(db.String(260), nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
 

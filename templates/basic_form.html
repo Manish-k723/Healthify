@@ -1,0 +1,156 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+ Other details 
+{% endblock %}
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Enter Your Basic Health Details</h2>
+        <p class="text-muted">Purpose: To better understand you</p>
+        <form method="POST">
+
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" class="form-control" id="weight" name="weight" required>
+            </div>
+
+            <div class="form-group">
+                <label for="height">Height (cm)</label>
+                <input type="number" class="form-control" id="height" name="height" required>
+            </div>
+
+            <div class="form-group">
+                <label>Physical Activity Levels</label>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="physicalActivity" id="activityHigh" value="High">
+                            <label class="form-check-label" for="activityHigh">High</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="physicalActivity" id="activityMedium" value="Medium" checked>
+                            <label class="form-check-label" for="activityMedium">Medium</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="physicalActivity" id="activityLow" value="Low">
+                            <label class="form-check-label" for="activityLow">Low</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label>Exercise Frequency</label>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exerciseFrequency" id="exerciseRegular" value="Regular">
+                            <label class="form-check-label" for="exerciseRegular">Regular</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exerciseFrequency" id="exerciseOccasional" value="Occasional" checked>
+                            <label class="form-check-label" for="exerciseOccasional">Occasional</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exerciseFrequency" id="exerciseRarely" value="Rarely">
+                            <label class="form-check-label" for="exerciseRarely">Rarely</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="form-group">
+                <label>Vehicle Use</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="vehicleUse" id="vehiclePersonal" value="Personal">
+                    <label class="form-check-label" for="vehiclePersonal">Personal</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="vehicleUse" id="vehiclePublic" value="Public" checked>
+                    <label class="form-check-label" for="vehiclePublic">Public</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="bp">Blood Pressure (mmHg)</label>
+                <input type="text" class="form-control" id="bp" name="bp" required>
+            </div>
+            <div class="form-group">
+                <label for="heartRate">Heart Rate (bpm)</label>
+                <input type="number" class="form-control" id="heartRate" name="heartRate" required>
+            </div>
+    
+            <div class="form-group">
+                <label>Cholesterol Levels</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="cholesterol" id="cholesterolHDL" value="HDL">
+                    <label class="form-check-label" for="cholesterolHDL">HDL (Good)</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="cholesterol" id="cholesterolLDL" value="LDL" checked>
+                    <label class="form-check-label" for="cholesterolLDL">LDL (Bad)</label>
+                </div>
+            </div>
+    
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+{% endblock %}
+{% block style %}
+<style>
+    body {
+        background-color: #e9ecef;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #495057;
+    }
+    .container {
+        max-width: 700px;
+        background: white;
+        padding: 25px;
+        margin: 40px auto;
+        border-radius: 8px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+    }
+    h2 {
+        color: #007bff;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+    .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+    }
+    .form-group label {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        font-size: 1rem;
+        border-radius: 5px;
+        line-height: 1.5;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .btn-primary:hover {
+        background-color: #0069d9;
+        border-color: #0062cc;
+    }
+</style>
+{% endblock %}

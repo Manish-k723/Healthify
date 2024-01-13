@@ -9,7 +9,7 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 nltk.download('vader_lexicon')
 sia = SentimentIntensityAnalyzer()
 
-from models import db, User, article, query, Exercise, yogaPoses, Yoga, exercisePoses
+from models import db, User, article, Query, Exercise, yogaPoses, Yoga, exercisePoses
 from app import app
 
 def auth_required(func):
@@ -115,8 +115,68 @@ def register():
     user = User(username=username, name = name, email=email, gender = gender, who=who, dob = dob, password=password)
     db.session.add(user)
     db.session.commit()
-    flash("User added Succesfully", "success")
-    return redirect(url_for("login"))
+    flash("User added Succesfully! Enter some more basic details.", "success")
+    uid = user.id
+    return redirect(url_for("basic_details", uid = uid))
+
+@app.route('/health-details/<int:uid>', methods = ["GET", "POST"])
+def basic_details(uid):
+    user = User.query.get(uid)
+    if request.method=="GET":
+        return render_template("basic_form.html", uid = uid, bd = True)
+    user.weight = a = int(request.form.get('weight'))
+    user.height = b = int(request.form.get('height'))
+    user.bmi_score = round(a/(b*0.01)**2, 2)
+    user.physical_activity = request.form.get('physicalActivity')
+    user.exercise_frequency = request.form.get('exerciseFrequency')
+    user.vehicle_use = request.form.get('vehicleUse')
+    user.bp = int(request.form.get('bp'))
+    user.heart_rate = int(request.form.get('heartRate'))
+    user.cholesterol = request.form.get('cholesterol')
+
+    db.session.commit()
+    flash("Details have been updated successfully", "success")
+    if "user_id" not in session:
+            return redirect(url_for("login"))
+    return redirect(url_for("home"))
+
+def get_meal_recommendation(bmi_score, cholesterol_level):
+    meal_recommendations = {}
+
+    if bmi_score < 18.5:
+        bmi_status = "You're currently in the underweight range. Let's focus on healthy meal & ways to gain strength."
+        breakfast = "Add nutrient-rich foods like oatmeal or eggs"
+        lunch = "Protein-rich meals like grilled chicken or fish"
+        dinner = "Include Whole grains and lean protein"
+    elif 18.5 <= bmi_score < 24.9:
+        bmi_status = "Great job! Your BMI score is in fit range. You're maintaining a healthy weight. Keep up the good work!"
+        breakfast = "Add Fruits and whole-grain cereals like barley, brown rice etc "
+        lunch = "Lean protein with the salads like whole wheat wrap with grilled chicken, lettuce"
+        dinner = "Light dinner with vegetables and whole grains"
+    elif 25 <= bmi_score < 29.9:
+        bmi_status = "You're in the overweight range, but don't worry! Check out our workout section for tips on staying active."
+        breakfast = "Include Low-fat yogurt and berries"
+        lunch = "You should have Grilled vegetables and quinoa"
+        dinner = "Lean protein like fish or tofu with steamed veggies"
+    else:
+        bmi_status = "You're in the obese range, but it's never too late to start making healthy changes. We're here to support you every step of the way."
+        breakfast = "Smoothie with spinach, fruits, and protein powder"
+        lunch = "Salad with lots of greens and a light dressing"
+        dinner = "Stir-fried veggies with lean protein source"
+    if cholesterol_level == 'HDL':
+        breakfast += ", with likes of avocado."
+        lunch += ", with a side of nuts."
+        dinner += ", with olive oil dressing will be beneficial."
+    elif cholesterol_level == 'LDL':
+        breakfast = breakfast.replace("or eggs", "with egg whites.")
+        lunch += ", dressed with lemon juice instead of creamy dressings."
+        dinner += ", focusing on leaner cuts of protein and avoiding heavy sauces"
+
+    meal_recommendations["BreakFast"] = breakfast
+    meal_recommendations["Lunch"] = lunch
+    meal_recommendations["Dinner"] = dinner
+
+    return meal_recommendations, bmi_status
 
 @app.route('/home')
 @auth_required
@@ -127,18 +187,35 @@ def home():
         return redirect(url_for('admin'))
     else:
         health = {
-            "Weight":"70kg",
-            "Height":"175cm",
-            "BMI":22.9,
-            "BP" : "120/80 mmHG",
-            "Heart Rate": "72 bpm"
+            "Weight": f"{user.weight} kg" if user.weight is not None else "Not provided",
+            "Height": f"{user.height} cm" if user.height is not None else "Not provided",
+            "BMI": f"{user.bmi_score}" if user.bmi_score is not None else "Not provided",  
+            "BP": f"{user.bp} mmHg" if user.bp is not None else "Not provided",
+            "Heart Rate": f"{user.heart_rate} bpm" if user.heart_rate is not None else "Not provided"
         }
-        meal_recommendations = {
-            "BreakFast": "Fruits",
-            "Lunch": "Delightful",
-            "Dinner": "Light dinner"
-        }
-        return render_template('home.html', user = user, health = health, meal_recommendations= meal_recommendations)
+        meal_recommendations, bmi_status = get_meal_recommendation(user.bmi_score, user.cholesterol)
+        yogas = Yoga.query.limit(4).all()
+        exercises = Exercise.query.limit(4).all()
+        return render_template('home.html', user = user, bmi_status= bmi_status, health = health, meal_recommendations= meal_recommendations, yogas= yogas, exercises = exercises)
+
+@app.route("/seeYogaPose/<int:sid>")
+@auth_required
+def seeYogaPose(sid):
+    user = User.query.get(session["user_id"])
+    discipline = Yoga.query.get(sid)
+    poses = yogaPoses.query.filter_by(yoga_id= sid).all()
+    img = "../static/icons/bg32.jpg"
+    return render_template("poses.html", poses = poses, user = user, discipline = discipline, img = img)
+
+@app.route("/seeExercisePose/<int:sid>")
+@auth_required
+def seeExercisePose(sid):
+    user = User.query.get(session["user_id"])
+    discipline = Exercise.query.get(sid)
+    poses = poses = exercisePoses.query.filter_by(exercise_id= sid).all()
+    img = "../static/icons/gym5.jpg"
+    return render_template("poses.html", poses = poses, user = user, discipline = discipline, img = img)
+
 
 @app.route('/update_pregnancy_status', methods=['POST'])
 def update_pregnancy_status():
@@ -213,10 +290,68 @@ def readArticle(articleId):
     art = db.session.query(article).filter_by(id = articleId).one()
     return render_template("readArticle.html", article = art, user = user)
 
-@app.route('/mother')
+def analyze_mother_health_risk(score):
+    result = {
+        'interpretation': '',
+        'suggestions': [],
+        'general_suggestions': [
+            "Maintain a balanced diet rich in fruits, vegetables, and whole grains.",
+            "Stay hydrated and drink plenty of water.",
+            "Engage in regular, moderate exercise as advised by your healthcare provider.",
+            "Get regular prenatal checkups.",
+            "Ensure adequate rest and manage stress effectively.",
+            "Listen to calming music or practice relaxation techniques."
+        ]
+    }
+
+    if score == 1:
+        result['interpretation'] = 'Low Risk'
+        result['suggestions'] = [
+            "Continue following a healthy lifestyle.",
+            "Keep up with regular prenatal visits.",
+            "Monitor your health but no immediate concerns."
+        ]
+    elif score == 2:
+        result['interpretation'] = 'Moderate Risk'
+        result['suggestions'] = [
+            "Consult with your healthcare provider for specific guidance.",
+            "Consider moderate lifestyle changes to improve your health.",
+            "Monitor your health more closely."
+        ]
+    elif score == 3:
+        result['interpretation'] = 'High Risk'
+        result['suggestions'] = [
+            "Immediate consultation with healthcare provider recommended.",
+            "Strictly follow medical advice and prescribed treatments.",
+            "Consider lifestyle changes and dietary adjustments as advised."
+        ]
+    else:
+        result['interpretation'] = 'Unknown Score'
+        result['suggestions'] = ["Score not recognized. Please consult your healthcare provider."]
+
+    return result
+
+@app.route('/mother', methods = ["GET", "POST"])
 @auth_required
 def mother():
-    return "This is Playlist"
+    user = User.query.get(session["user_id"])
+    if request.method =="GET":
+        return render_template("maternal_page.html", user = user)
+    name = request.form.get("userName")
+    age = int(request.form.get("age"))
+    systolic_bp = int(request.form.get("Systolic_bp"))
+    diastolic_bp = int(request.form.get("diastolic_bp"))
+    blood_sugar_level = int(request.form.get("blood_sugar_level"))
+    temp = int(request.form.get("temp"))
+    heart_rate = int(request.form.get("heart_rate"))
+    print(age, systolic_bp, diastolic_bp, temp, blood_sugar_level, heart_rate)
+    scaler = joblib.load('models/maternal_scaler.joblib')
+    scaled_inpt = scaler.transform([[age, systolic_bp, diastolic_bp, blood_sugar_level, temp, heart_rate]])
+    print(scaled_inpt)
+    model = joblib.load("models/maternal_model.joblib")
+    risk = model.predict(scaled_inpt)
+    result = analyze_mother_health_risk(risk[0])
+    return render_template("assesmentResult.html", user = user, risk = risk[0], assessment = result)
 
 @app.route('/mental_health_check_up')
 @auth_required
@@ -491,11 +626,23 @@ def addexercisePose(eid):
     flash("Exercise added Succesfully", "success")
     return redirect(url_for("addexercisePose", eid = eid))
     
-
-@app.route('/contact')
+@app.route('/contact', methods=["POST", "GET"])
 @auth_required
 def contact():
-    return "This is contact"
+    user = User.query.get(session["user_id"])
+    if request.method == "GET":
+        return render_template("contact.html", user = user)
+    user_name = request.form.get('userName')
+    email = request.form.get('userEmail')
+    phone_number = request.form.get('userPhone')
+    problem_title = request.form.get('problemTitle')
+    problem_description = request.form.get('problemDescription')
 
-# https://en.wikipedia.org/wiki/Mental_health
-# 
+    new_query = Query(user_name=user_name, email=email, phone_number=phone_number,
+                      problem_title=problem_title, description=problem_description, user_id = user.id)
+    db.session.add(new_query)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+                    
+    

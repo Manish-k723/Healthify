@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+ Maternal Risk-o-meter
+{% endblock %}
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Maternal Risk-o-meter</h2>
+        <p>These parameters are quite important to correctly classify the situation, if you don't have any of these details, you can contact us.</p>
+        <hr>
+        <form method="POST">
+            <div class="form-group wdth">
+                <label for="userName">Name(optional)</label>
+                <input type="text" class="form-control" id="userName" name="userName" required>
+            </div>
+
+            <div class="form-group wdth">
+                <label for="age">Your Age</label>
+                <input type="text" class="form-control" id="age" name="age" required>
+            </div>
+
+            <div class="form-group wdth">
+                <label for="Systolic_bp">Systolic Blood Pressure</label>
+                <input type="text" class="form-control" id="Systolic_bp" name="Systolic_bp" required>
+            </div>
+
+            <div class="form-group wdth">
+                <label for="diastolic_bp">Diastolic Blood Pressure</label>
+                <input type="text" class="form-control" id="diastolic_bp" name="diastolic_bp" required>
+            </div>
+            <div class="form-group wdth">
+                <label for="blood_sugar_level">Blood Sugar Level</label>
+                <input type="text" class="form-control" id="blood_sugar_level" name="blood_sugar_level" required>
+            </div>
+            <div class="form-group wdth">
+                <label for="temp">Current Body Temprature</label>
+                <input type="text" class="form-control" id="temp" name="temp" required>
+            </div>
+            <div class="form-group wdth">
+                <label for="heart_rate">Heart Rate</label>
+                <input type="text" class="form-control" id="heart_rate" name="heart_rate" required>
+            </div>
+            <button type="submit" class="btn btn-outline-light text-center" style="margin-top: 12px; margin-bottom: 12px;">Submit</button>
+        </form>
+    </div>
+</body>
+{% endblock %}
+{% block style %}
+<style>
+    body{
+            background: center/cover no-repeat url('../static/icons/fetal.gif');
+            background-repeat: no-repeat;
+            color: white;
+        }
+    h2 {
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+    .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+    }
+    .form-group label {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    .wdth{
+        width: 400px;
+    }
+</style>
+{% endblock %}

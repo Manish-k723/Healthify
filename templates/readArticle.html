@@ -18,11 +18,6 @@
             padding: 20px;
             margin-top: 20px;
         }
-        .article-image {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
         .article-title {
             font-weight: bold;
             margin-bottom: 15px;
@@ -54,7 +49,7 @@
             <p class="article-abstract">Abstract: {{article.abstract}}</p>
             
             <div class="article-content">
-                <p>{{article.content}}</p>
+                <p style="white-space: pre-line;">{{article.content}}</p>
                 <!-- More article content goes here -->
             </div>
         </div>

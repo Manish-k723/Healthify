@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Health Metrics</h1>
+    <h1>Your Health Card</h1>
     <hr>
     <div class="row">
         {% for param, value in health.items() %}
@@ -24,7 +24,9 @@
         <div class="col-md-2 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <button class="card-title btn btn-outline-secondary">Customize <i class="fa fa-pencil-square-o" style="font-size:24px"></i></button>
+                    <a href="/health-details/{{user.id}}" class="btn btn-outline-secondary card-title">
+                        Update details <i class="fa fa-pencil-square-o" style="font-size:24px"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -32,7 +34,9 @@
 </div>
 
 <div class="container mt-4">
-    <h1>Preferred meal</h1>
+    <h1>Recommended meal</h1>
+    <p>{{bmi_status}}</p>
+    <hr>
     <div class="row">
         {% for param, value in meal_recommendations.items() %}
         <div class="col-md-4 mb-3">
@@ -53,17 +57,18 @@
     <h1>Discover Yoga: Find Your Balance</h1>
     <hr>
     <div class="row">
-        <!-- Loop through yoga sessions -->
+        {% for yoga in yogas %}
         <div class="col-md-3 mb-3" each="yoga in yoga_sessions">
             <div class="card yoga-card">
-                <img src="/" class="card-img-top" alt="Yoga Image">
+                <img src="{{ url_for('static', filename= 'images/' + yoga.imagepath)}}" class="card-img-top" alt="Yoga Image">
                 <div class="card-body">
-                    <h5 class="card-title"> yoga.title </h5>
-                    <p class="card-text">yoga.description </p>
-                    <a href="/" class="btn btn-primary">Learn More</a>
+                    <h5 class="card-title"><strong> {{yoga.name}}</strong> </h5>
+                    <p class="card-text">{{yoga.description}} </p>
+                    <a href="/seeYogaPose/{{yoga.id}}" class="btn btn-primary">Learn More</a>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 
@@ -71,17 +76,18 @@
     <h1>Strength & Stamina Workouts</h1>
     <hr>
     <div class="row">
-        <!-- Loop through yoga sessions -->
+        {% for exercise in exercises %}
         <div class="col-md-3 mb-3" each="yoga in yoga_sessions">
             <div class="card yoga-card">
-                <img src="/" class="card-img-top" alt="Yoga Image">
+                <img src="{{ url_for('static', filename= 'images/' + exercise.imagepath) }}" class="card-img-top" alt="Yoga Image">
                 <div class="card-body">
-                    <h5 class="card-title"> yoga.title </h5>
-                    <p class="card-text">yoga.description </p>
-                    <a href="/" class="btn btn-primary">Learn More</a>
+                    <h5 class="card-title"> <strong>{{exercise.name}} </strong></h5>
+                    <p class="card-text">{{exercise.description}} </p>
+                    <a href="/seeExercisePose/{{exercise.id}}" class="btn btn-primary">Learn More</a>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
