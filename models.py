@@ -39,10 +39,6 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.passhash, password)
-
-# class user_health_details(db.Model):
-#     __tablename__ = 'user_health_details'
-#     user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
     
 class article(db.Model):
     __tablename__="article"

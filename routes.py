@@ -100,12 +100,15 @@ def register():
     gender = request.form.get('gender')
     who = request.form.get("who")
     password = request.form.get("password")
-
+    cpassword = request.form.get("confirmPassword")
+    if cpassword != password:
+        flash("Confirm Password didn't matched", "danger")
+        return redirect(url_for("register"))
     today = datetime.today().date()
     dob = datetime.strptime(dob_str, '%Y-%m-%d').date()
 
     age = today.year - dob.year
-    print(username, name, email, password, dob_str, age, dob, gender, who)
+    # print(username, name, email, password, dob_str, age, dob, gender, who)
     if username =="" or password =="":
         flash("Username or Password cannot be empty.", "danger")
         return redirect(url_for('register'))
@@ -216,7 +219,6 @@ def seeExercisePose(sid):
     img = "../static/icons/gym5.jpg"
     return render_template("poses.html", poses = poses, user = user, discipline = discipline, img = img)
 
-
 @app.route('/update_pregnancy_status', methods=['POST'])
 def update_pregnancy_status():
     data = request.get_json()
@@ -251,7 +253,7 @@ def addArticle():
         filepath = os.path.join(app.config['IMAGE_UPLOAD_FOLDER'], image_filename)
 
         img = Image.open(image_file)
-        img = img.resize((850, 480))
+        img = img.resize((850, 530))
         img.save(filepath)
 
     if user.is_admin:
@@ -281,10 +283,12 @@ def updateStatus(articleId, newStatus):
 @app.route('/read_articles')
 @auth_required
 def read_articles():
+    user = User.query.get(session["user_id"])
     articles = db.session.query(article).order_by(article.impressions.desc()).all()
-    return render_template("articles.html", articles = articles)
+    return render_template("articles.html", articles = articles, user = user)
 
 @app.route('/healthifyArticles/<int:articleId>')
+@auth_required
 def readArticle(articleId):
     user = User.query.get(session["user_id"])
     art = db.session.query(article).filter_by(id = articleId).one()
@@ -293,6 +297,7 @@ def readArticle(articleId):
 def analyze_mother_health_risk(score):
     result = {
         'interpretation': '',
+        'color':'',
         'suggestions': [],
         'general_suggestions': [
             "Maintain a balanced diet rich in fruits, vegetables, and whole grains.",
@@ -305,21 +310,22 @@ def analyze_mother_health_risk(score):
     }
 
     if score == 1:
-        result['interpretation'] = 'Low Risk'
+        result['interpretation'] = '''Great news! Based on the analysis, it appears that there are currently no significant risk factors present. It's always important to continue with regular health check-ups and maintain a healthy lifestyle. Please remember that this assessment is based on the current data, and any new symptoms or changes should be discussed with a healthcare professional. Stay healthy and take care!'''
+        # result['color'] ='green'
         result['suggestions'] = [
             "Continue following a healthy lifestyle.",
             "Keep up with regular prenatal visits.",
             "Monitor your health but no immediate concerns."
         ]
     elif score == 2:
-        result['interpretation'] = 'Moderate Risk'
+        result['interpretation'] = '''Your assessment indicates a moderate risk. While this isn't cause for immediate concern, it's important to take proactive steps for your health. Please consider scheduling a follow-up with your healthcare provider to discuss this further. It's also a good idea to monitor any changes in your health and keep up with regular check-ups. Remember, early intervention can make a significant difference. Take care and stay informed about your health.'''
         result['suggestions'] = [
             "Consult with your healthcare provider for specific guidance.",
             "Consider moderate lifestyle changes to improve your health.",
             "Monitor your health more closely."
         ]
     elif score == 3:
-        result['interpretation'] = 'High Risk'
+        result['interpretation'] = '''Your assessment indicates a high risk. This is a crucial time to seek immediate medical advice. Please contact your healthcare provider as soon as possible to discuss these findings and the next steps for your health and safety. It's important not to delay in addressing this. Your health is a priority, and prompt action is essential for the best possible care. Remember, you're not alone in this, and there are resources and support available to help you through this period. Please take this seriously and seek help right away.'''
         result['suggestions'] = [
             "Immediate consultation with healthcare provider recommended.",
             "Strictly follow medical advice and prescribed treatments.",
@@ -338,16 +344,14 @@ def mother():
     if request.method =="GET":
         return render_template("maternal_page.html", user = user)
     name = request.form.get("userName")
-    age = int(request.form.get("age"))
-    systolic_bp = int(request.form.get("Systolic_bp"))
-    diastolic_bp = int(request.form.get("diastolic_bp"))
-    blood_sugar_level = int(request.form.get("blood_sugar_level"))
-    temp = int(request.form.get("temp"))
-    heart_rate = int(request.form.get("heart_rate"))
-    print(age, systolic_bp, diastolic_bp, temp, blood_sugar_level, heart_rate)
+    age = float(request.form.get("age"))
+    systolic_bp = float(request.form.get("Systolic_bp"))
+    diastolic_bp = float(request.form.get("diastolic_bp"))
+    blood_sugar_level = float(request.form.get("blood_sugar_level"))
+    temp = float(request.form.get("temp"))
+    heart_rate = float(request.form.get("heart_rate"))
     scaler = joblib.load('models/maternal_scaler.joblib')
     scaled_inpt = scaler.transform([[age, systolic_bp, diastolic_bp, blood_sugar_level, temp, heart_rate]])
-    print(scaled_inpt)
     model = joblib.load("models/maternal_model.joblib")
     risk = model.predict(scaled_inpt)
     result = analyze_mother_health_risk(risk[0])
@@ -425,7 +429,7 @@ def predict_student():
     w4 = round(sia.polarity_scores(additionalComments)["compound"]*5,1)
     w5 = round((w1+w2+w3+min(w4, 0))/4,1)
     analyses = mental_health_check_up_result(w1 = w1,w2= w2,w3= w3,w4= w4)
-    return render_template('result.html', analyses=analyses, w1 = w1, w2= w2, w3= w3, w4= w4, w5=w5)
+    return render_template('result.html', analyses=analyses, w1 = w1, w2= w2, w3= w3, w4= w4, w5=w5, user = user)
 
 @app.route('/predict_for_wp', methods=["POST"])
 @auth_required
@@ -489,7 +493,7 @@ def predict_wp():
     w4 = round(sia.polarity_scores(additionalComments)["compound"]*5,1)
     w5 = round((w1+w2+w3+min(w4, 0))/4,1)
     analyses = mental_health_check_up_result(w1 = w1,w2= w2,w3= w3,w4= w4)
-    return render_template('result.html', analyses=analyses, w1 = w1, w2= w2, w3= w3, w4= w4, w5=w5)
+    return render_template('result.html', analyses=analyses, w1 = w1, w2= w2, w3= w3, w4= w4, w5=w5, user = user)
 
 def mental_health_check_up_result(w1, w2, w3, w4):
     if w1 < 3:
@@ -544,12 +548,27 @@ def update_impression():
     db.session.commit()
     return redirect(url_for("readArticle", articleId = art.id))
 
-@app.route('/profile')
+@app.route('/profile', methods=["GET", "POST"])
 @auth_required
 def profile():
     user = User.query.get(session["user_id"])
-    return render_template("profile.html", user = user)
-
+    if request.method== "GET":
+        return render_template("profile.html", user = user)
+    password = request.form.get("password")
+    username = request.form.get("username")
+    if user.query.filter_by(username =username).first() and username !=user.username:
+        flash("User with same username already exist, try other", "danger")
+        return redirect(url_for("profile"))
+    if not user.check_password(password):
+        flash("Password didn't match, Try again!", "danger")
+        return redirect(url_for("profile"))
+    user.username = username
+    user.name = request.form.get("name")
+    user.email = request.form.get("email")
+    db.session.commit()
+    flash("Details Update Successfully", "success")
+    return redirect(url_for("profile"))
+    
 @app.route('/addYoga', methods = ["GET", "POST"])
 @auth_required
 @admin_auth_required
@@ -644,5 +663,9 @@ def contact():
     db.session.commit()
     return redirect(url_for('home'))
 
-                    
+@app.route('/about')
+@auth_required
+def aboutUs():
+    user = User.query.get(session["user_id"])
+    return render_template("about.html", user = user)                 
     

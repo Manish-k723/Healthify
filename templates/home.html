@@ -35,14 +35,14 @@
 
 <div class="container mt-4">
     <h1>Recommended meal</h1>
-    <p>{{bmi_status}}</p>
     <hr>
+    <p>{{bmi_status}}</p>
     <div class="row">
         {% for param, value in meal_recommendations.items() %}
         <div class="col-md-4 mb-3">
             <div class="card meal-card">
                 <div class="card-header meal-card-header">
-                    <strong>{{param}}</strong>
+                    <strong>{{param}} <i class="fa-solid fa-mug-hot"></i></strong>
                 </div>
                 <div class="card-body">
                     <p class="card-textt"> {{ value }}</p>

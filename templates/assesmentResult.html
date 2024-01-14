@@ -6,53 +6,87 @@
 
 {% block content %}
     <body>
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Mother Health Risk Assessment Result</h2>
-        <div class="content-section">
-            <h4>Risk Level: <span class="risk-level">{{ assessment.interpretation }}</span></h4>
+        <div class="container">
+            <h1 class="text-center"><strong>Maternal Risk-o-meter Result</strong></h1>
+            <div class="content-section" >
+                    <p>{{assessment.interpretation}}</p>
+            </div>
+            <div class="content-section">
+                <h2>Suggestions Based on Score</h2>
+                <ul class="suggestions-list">
+                    {% for suggestion in assessment.suggestions %}
+                        <li>{{ suggestion }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="content-section">
+                <h2>General Suggestions</h2>
+                <ul class="suggestions-list">
+                    {% for general_suggestion in assessment.general_suggestions %}
+                        <li>{{ general_suggestion }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="content-section">
+                <h2>Additional Advice</h2>
+                <ul class="suggestions-list">
+                    <li>Consider prenatal yoga to reduce stress and maintain flexibility.</li>
+                    <li>Ensure adequate sleep and rest to support your body's needs.</li>
+                </ul>
+            </div>
         </div>
-        
-        <div class="content-section">
-            <h4>Suggestions Based on Your Score</h4>
-            <ul class="suggestions-list">
-                {% for suggestion in assessment.suggestions %}
-                    <li>{{ suggestion }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        
-        <div class="content-section">
-            <h4>General Health Suggestions</h4>
-            <ul class="suggestions-list">
-                {% for general_suggestion in assessment.general_suggestions %}
-                    <li>{{ general_suggestion }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-                    
-    </div>
 </body>
 {% endblock %}
 
 {% block style %}
     <style>
-        body{
-            background: center/cover no-repeat url('../static/icons/fetal.gif');
-            background-repeat: no-repeat;
-            color: white;
-        }
-        .suggestions-list {
-            list-style-type: none;
-            padding: 0;
-        }
-            .suggestions-list li {
-            margin-bottom: 10px;
-        }
-            .risk-level {
-            font-weight: bold;
-        }
-            .content-section {
-            margin-bottom: 20px;
-        }
+        body {
+        background: center/cover no-repeat url('../static/icons/fetus1.png');
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        line-height: 1.6;
+        /* padding: 20px; */
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #f9f9f9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 35px;
+    }
+
+    h1, h2 {
+        color: #00b372
+    }
+
+    .content-section {
+        background: #fff;
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .risk-level {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #d9534f;
+    }
+
+    .suggestions-list li {
+        background: #e7e7e7;
+        margin-bottom: 5px;
+        padding: 10px;
+        border-radius: 4px;
+        transition: background 0.3s; /* Add transition for smoother hover effect */
+        cursor: pointer; /* Change cursor on hover for interactivity */
+    }
+
+    .suggestions-list li:hover {
+        background: #d9edf7;
+    }
     </style>
 {% endblock %}

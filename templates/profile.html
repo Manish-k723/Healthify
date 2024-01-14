@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block title %}
-Healthify-Profile
+    Healthify-Profile
 {% endblock %} 
 {% block content %}
-    <h1>Profile
-        <small class="text dec">@{{user.username}}</small>
+    <h1 style="margin-top: 20px;">Profile
+        <small class="text dec" >@{{user.username}}</small>
     </h1>
     
     <hr>
@@ -30,11 +30,11 @@ Healthify-Profile
                                 <input type="text" class="form-control" name="email" id="email" value="{{user.email}}">
                             </div>
                             <div class="mb-3">
-                                <label for="confirmPassword" class="form-label">Password</label>
+                                <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" id="password">
                             </div>
                             <input type="submit" value="Save Changes" class="btn btn-outline-success">
-                            <a href="{{url_for('logout')}}" class="btn btn-outline-danger mt-3">Logout</a>
+                            <a href="{{url_for('logout')}}" class="btn btn-outline-danger mt-3">Logout <i class="fa fa-sign-out" style="font-size: 24px;"></i></a>
                         </form>
                     </div>
                 </div>

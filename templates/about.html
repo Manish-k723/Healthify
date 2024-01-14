@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+{% block title %}
+    About Us - Healthify
+{% endblock %}
+
+{% block content %}
+    <body>
+
+    <div class="container">
+        <h1 class="text-center"><strong>About Us</strong></h1>
+        
+        <div class="about-section">
+            <h2>Our Mission</h2>
+            <hr>
+            <p>At Healthify, our mission is to revolutionize the healthcare landscape by integrating all health-related services into one comprehensive platform, powered by cutting-edge Artificial Intelligence. While we currently leverage Machine Learning to tackle a variety of health challenges, our vision extends to employing Deep Learning and other advanced AI technologies to solve complex health issues. We are dedicated to providing robust health monitoring and personalized care solutions.</p>
+            <p>
+                With a special focus on mental health and maternity care, we are committed to addressing these vital areas with sensitivity and innovation. Our aim is to create a world where quality healthcare is accessible and tailored to individual needs, ensuring that everyone, no matter their situation, has the support and resources they need for optimal health and well-being.
+                </p>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Team</h2>
+            <hr>
+            <div class="row">
+                <!-- Team Member 1 -->
+                <div class="col-md-4 text-center team-member">
+                    <img src="../static/icons/manish.jpg" alt="Team Member Name" class="team-photo">
+                    <div class="team-name">Manish Kumar</div>
+                    <div >Data Scientist</div>
+                    <div ><a href="https://www.linkedin.com/in/manish-kumar-244a55202/" target="blank">See more</a></div>
+                </div>
+                <div class="col-md-4 text-center team-member">
+                    <img src="../static/icons/prenka.jpg" alt="Team Member Name" class="team-photo">
+                    <div class="team-name">Priyanka Kumari</div>
+                    <div >Software Developer</div>
+                    <div ><a href="https://www.linkedin.com/in/priyanka-yadav-3ab194243/" target="blank">See more</a></div>
+                </div>
+                <div class="col-md-4 text-center team-member">
+                    <!-- <img src="../static/icons/prenka.jpg" alt="Team Member Name" class="team-photo"> -->
+                    <i class="fa fa-group team-photo" style="font-size:128px;"></i>
+                    <div class="team-name">Our Users</div>
+                    <div>Inspiration</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="about-section">
+            <h2>Our Story</h2>
+            <p>Healthify was founded in [Year] with the goal of making wellness accessible to everyone. We've grown from a small team to a leading health platform, but our core values remain the same.</p>
+        </div> -->
+
+        <div class="about-section">
+            <h2>Contact Us</h2>
+            <hr>
+            <p>If you have any questions or would like to know more about our services or us, please feel free to get in touch.</p>
+            <p>Email: contact@healthify.com</p>
+            <p>Phone: +91-963-235-8796</p>
+        </div>
+    </div>
+    </body>
+{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .about-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .team-member {
+            margin-bottom: 20px;
+        }
+        .team-photo {
+            border-radius: 50%;
+            height: 150px;
+            width: 150px;
+            object-fit: cover;
+            border: 2px solid;
+        }
+        .team-name {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+    </style>
+{% endblock %}
