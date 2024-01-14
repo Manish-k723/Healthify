@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    HealthAI
+{% endblock %}
+{% block content %}
+<div class="chatbot-wrapper">
+    <div class="chatbot-container">
+        <iframe 
+            src="https://console.dialogflow.com/api-client/demo/embedded/b0c90bf7-829c-47b3-9584-6a6dcce4ee59" 
+            frameborder="0" 
+            allow="microphone;" 
+            class="chatbot-iframe">
+        </iframe>
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+<style>
+    .chatbot-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    position: relative; 
+    z-index: 1;
+}
+
+.chatbot-container {
+    width: 80%;
+    max-width: 850px; 
+    height: 90%;
+    max-height: 600px; 
+    border: 1px solid #ddd; 
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1); 
+    border-radius: 10px; 
+    overflow: hidden;
+}
+
+.chatbot-iframe {
+    width: 100%;
+    height: 100%;
+}
+</style>
+{% endblock %}

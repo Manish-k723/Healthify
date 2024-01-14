@@ -100,18 +100,15 @@ def register():
     gender = request.form.get('gender')
     who = request.form.get("who")
     password = request.form.get("password")
-    cpassword = request.form.get("confirmPassword")
+    cpassword = request.form.get("cpassword")
     if cpassword != password:
         flash("Confirm Password didn't matched", "danger")
         return redirect(url_for("register"))
-    today = datetime.today().date()
+    # today = datetime.today().date()
     dob = datetime.strptime(dob_str, '%Y-%m-%d').date()
 
-    age = today.year - dob.year
+    # age = today.year - dob.year
     # print(username, name, email, password, dob_str, age, dob, gender, who)
-    if username =="" or password =="":
-        flash("Username or Password cannot be empty.", "danger")
-        return redirect(url_for('register'))
     if User.query.filter_by(username = username).first():
         flash("This username is already in use. Please choose another", "danger")
         return redirect(url_for('register'))
@@ -669,3 +666,8 @@ def aboutUs():
     user = User.query.get(session["user_id"])
     return render_template("about.html", user = user)                 
     
+@app.route('/chatWithHealthAi')
+@auth_required
+def chatWithHealthAi():
+    user = User.query.get(session["user_id"])
+    return render_template("chatbot.html", user = user)

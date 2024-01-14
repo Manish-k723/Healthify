@@ -5,84 +5,119 @@
 {% endblock %} 
 
 {% block content %} 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header bg-success text-white">
-                        <h3 class="mb-0">Register <i class="fa fa-user-plus"></i></h3>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" class="mt-5">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" name="name" id="name" class="form-control">
+    <body>
+        <div class="container mt-5">
+            <h2 class="mb-4">Register <i class="fa fa-user-plus"></i></h2>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" name="name" id="name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="gender" value="Male">
+                                <label class="form-check-label" for="gender">Male</label>
                             </div>
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" name="username" id="username">
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="gender" value="Female">
+                                <label class="form-check-label" for="gender">Female</label>
                             </div>
-                              <div class="form-group col-md-4">
-                                <label for="gender" class="form-label">Gender</label>
-                                    <select class="form-control" name = "gender" id="gender">
-                                        <option selected>Choose..</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Other</option>
-                                    </select>
-                              </div>
-                              <div class="form-group col-md-4">
-                                <label for="who" class="form-label" style="margin-top: 14px;">You are a</label>
-                                    <select class="form-control" name = "who" id="who">
-                                        <option selected>Choose..</option>
-                                        <option>Student</option>
-                                        <option>Working Professional</option>
-                                        <option>Other</option>
-                                    </select>
-                              </div>
-                              <div class="form-group col-md-4">
-                                <label for="dob" class="form-label" style="margin-top: 14px;">Date of Birth</label>
-                                <input type="date" class="form-control" name="dob" id="dob">
-                              </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label" style="margin-top: 14px;">Email</label>
-                                <input type="text" name="email" id="email" class="form-control">
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="gender" value="other">
+                                <label class="form-check-label" for="gender">Other</label>
                             </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Create Password</label>
-                                <input type="password" class="form-control" name="password" id="password">
-                            </div>
-                            <div class="mb-3">
-                                <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" name="confirmPassword" id="confirmPassword">
-                            </div>
-                            <input type="submit" value="Register" class="btn btn-outline-success">
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Which one describes you best?</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="who" id="who" value="Student">
+                                <label class="form-check-label" for="who">Student</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="who" id="who" value="Working Professional" >
+                                <label class="form-check-label" for="who">Working Professional</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="who" id="exerciseRarely" value="Other">
+                                <label class="form-check-label" for="who">Other</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" name="dob" id="dob" required>
+                  </div>
+    
+                <div class="form-group">
+                    <label for="password">Create Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="cpassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="cpassword" name="cpassword" required>
+                </div>
+        
+                <button type="submit" class="btn btn-outline-success" style="margin-top: 10px;">Submit</button>
+            </form>
         </div>
-    </div>
+    </body>
+    </body>
 {% endblock %} 
 
 {% block style %}
 <style>
     body {
-        background-color: #343a40; /* Dark background color */
-        color: #ffffff; /* Text color */
+        background-color: #e9ecef;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #495057;
     }
-    form{
-        /* width: 50%;
-        margin: 0 auto; */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .container {
+        max-width: 700px;
+        background: white;
+        padding: 25px;
+        margin: 40px auto;
+        border-radius: 8px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.1);
     }
-
-    h1{
-        margin-top: 72px;
-        text-align: center;
+    h2 {
+        color: #457c11;
+        margin-bottom: 20px;
+        font-weight: 600;
     }
-    
+    .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+    }
+    .form-group label {
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
 </style>
 {% endblock %}

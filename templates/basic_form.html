@@ -31,7 +31,7 @@
                     </div>
                     <div class="col">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="physicalActivity" id="activityMedium" value="Medium" checked>
+                            <input class="form-check-input" type="radio" name="physicalActivity" id="activityMedium" value="Medium">
                             <label class="form-check-label" for="activityMedium">Medium</label>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="col">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exerciseFrequency" id="exerciseOccasional" value="Occasional" checked>
+                            <input class="form-check-input" type="radio" name="exerciseFrequency" id="exerciseOccasional" value="Occasional">
                             <label class="form-check-label" for="exerciseOccasional">Occasional</label>
                         </div>
                     </div>
@@ -93,16 +93,16 @@
             <div class="form-group">
                 <label>Cholesterol Levels</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="cholesterol" id="cholesterolHDL" value="HDL">
+                    <input class="form-check-input" type="radio" name="cholesterol" id="cholesterolHDL" value="HDL" checked>
                     <label class="form-check-label" for="cholesterolHDL">HDL (Good)</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="cholesterol" id="cholesterolLDL" value="LDL" checked>
+                    <input class="form-check-input" type="radio" name="cholesterol" id="cholesterolLDL" value="LDL">
                     <label class="form-check-label" for="cholesterolLDL">LDL (Bad)</label>
                 </div>
             </div>
     
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-outline-success">Submit</button>
         </form>
     </div>
 </body>
@@ -123,7 +123,7 @@
         box-shadow: 0 6px 25px rgba(0,0,0,0.1);
     }
     h2 {
-        color: #007bff;
+        color: #569e12;
         margin-bottom: 20px;
         font-weight: 600;
     }
@@ -136,21 +136,6 @@
     .form-group label {
         margin-bottom: 0.5rem;
         font-weight: 500;
-    }
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-        color: white;
-        padding: 10px 15px;
-        font-size: 1rem;
-        border-radius: 5px;
-        line-height: 1.5;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    .btn-primary:hover {
-        background-color: #0069d9;
-        border-color: #0062cc;
     }
 </style>
 {% endblock %}
