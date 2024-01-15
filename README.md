@@ -74,16 +74,16 @@ You can also go to this demo video: [Demo Video](https://drive.google.com/file/d
 
 ## Highlight Features
 
-#### Personalized Mental Health Assessment
+### Personalized Mental Health Assessment
 **AI-Driven Analysis**: Our web-app features an advanced ML model, trained on extensive public data, capable of predicting users' mental health based on their input. It uniquely tailors its analysis for students and working professionals, offering specialized insights.
 
-#### Maternal Risk-O-Meter
+### Maternal Risk-O-Meter
 **Innovative Risk Assessment Tool**: A unique ML-powered feature that evaluates maternal risk. By answering a set of questions, the tool can determine the risk level for expecting mothers, aiding in early awareness and precautionary measures.
 
-#### Interactive Health Chatbot
+### Interactive Health Chatbot
 **Expert-Trained Conversational AI**: Our chatbot, trained on a dataset of expert-answered health queries and sophisticated models like ChatGPT, can engage in casual banter and provide informed responses to health-related questions.
 
-#### User Experience
+### User Experience
 **User-Centric Design**: The web app boasts a visually appealing and intuitive user interface, enhancing user experience and making navigation seamless. Every aspect of the design is crafted to ensure ease of use while providing a pleasant and engaging visual appeal.
 
 Do pull and try yourself😊
