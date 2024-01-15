@@ -36,8 +36,10 @@ def admin_auth_required(func):
 def index():
     try:
         user = User.query.get(session["user_id"])
-        if user:
-            return redirect(url_for("home"))
+        if user.is_admin:
+            return redirect(url_for("adminHome"))
+        elif user:
+            return redirect(url_for('home'))
         else:
             return redirect(url_for("login"))
     except:
@@ -155,8 +157,8 @@ def get_meal_recommendation(bmi_score, cholesterol_level):
         dinner = "Light dinner with vegetables and whole grains"
     elif 25 <= bmi_score < 29.9:
         bmi_status = "You're in the overweight range, but don't worry! Check out our workout section for tips on staying active."
-        breakfast = "Include Low-fat yogurt and berries"
-        lunch = "You should have Grilled vegetables and quinoa"
+        breakfast = "Include Low-fat yogurt topped with a colorful assortment of fresh berries"
+        lunch = "You should try smoky flavor of the veggies with the nutty taste of quinoa"
         dinner = "Lean protein like fish or tofu with steamed veggies"
     else:
         bmi_status = "You're in the obese range, but it's never too late to start making healthy changes. We're here to support you every step of the way."
@@ -165,12 +167,12 @@ def get_meal_recommendation(bmi_score, cholesterol_level):
         dinner = "Stir-fried veggies with lean protein source"
     if cholesterol_level == 'HDL':
         breakfast += ", with likes of avocado."
-        lunch += ", with a side of nuts."
+        lunch += ", with the side of nuts."
         dinner += ", with olive oil dressing will be beneficial."
     elif cholesterol_level == 'LDL':
         breakfast = breakfast.replace("or eggs", "with egg whites.")
         lunch += ", dressed with lemon juice instead of creamy dressings."
-        dinner += ", focusing on leaner cuts of protein and avoiding heavy sauces"
+        dinner += ", focusing on leaner cuts of protein and avoiding heavy sauces."
 
     meal_recommendations["BreakFast"] = breakfast
     meal_recommendations["Lunch"] = lunch
@@ -217,7 +219,7 @@ def seeExercisePose(sid):
     return render_template("poses.html", poses = poses, user = user, discipline = discipline, img = img)
 
 @app.route('/update_pregnancy_status', methods=['POST'])
-def update_pregnancy_status():
+def update_pregnancy_status(): #not in use, in current project
     data = request.get_json()
     pregnant = data.get('pregnant', False)
     user = User.query.get(session["user_id"])

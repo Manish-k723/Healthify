@@ -1,43 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Read Article</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            background: center/cover no-repeat url('../static/icons/bg14.png');
-            background-repeat: no-repeat;
-        }
-        .article-container {
-            background: white;
-            border-radius: 5px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        .article-title {
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        .article-content, .article-abstract {
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: #333;
-        }
-        .article-creator {
-            font-size: 0.9em;
-            color: #6c757d;
-            margin-bottom: 20px;
-        }
-        .back-button {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
+{% extends 'layout.html' %}
+
+{% block title %}
+Article Page
+{% endblock %}
+    
+{% block content %}
 <body>
     <div class="container">
         <div class="back-button">
@@ -72,4 +39,38 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>
+{% endblock %}
+{% block style %}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        background: center/cover no-repeat url('../static/icons/bg14.png');
+        background-repeat: no-repeat;
+    }
+    .article-container {
+        background: white;
+        border-radius: 5px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .article-title {
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+    .article-content, .article-abstract {
+        font-size: 1.1em;
+        line-height: 1.6;
+        color: #333;
+    }
+    .article-creator {
+        font-size: 0.9em;
+        color: #6c757d;
+        margin-bottom: 20px;
+    }
+    .back-button {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
