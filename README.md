@@ -86,4 +86,6 @@ You can also go to this demo video: [Demo Video](https://drive.google.com/file/d
 ### User Experience
 **User-Centric Design**: The web app boasts a visually appealing and intuitive user interface, enhancing user experience and making navigation seamless. Every aspect of the design is crafted to ensure ease of use while providing a pleasant and engaging visual appeal.
 
+Thanks to [Priyanka Kumari](https://github.com/piyanka) for her contributions.
+
 Do pull and try yourself😊
